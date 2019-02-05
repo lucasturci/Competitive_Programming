@@ -1,42 +1,15 @@
 #include <bits/stdc++.h>
-
-#define pb push_back
-#define fi first
-#define se second
-#define mp make_pair
-
 using namespace std;
-typedef pair<int, int> ii;
-typedef long long ll;
-
-const int N = 1000007, inf = 0x3f3f3f3f;
-
-
-int pi[N];
-
-int main() {
-	ios::sync_with_stdio(false);
-
-	string s;
-	cin >> s;
-
-	pi[0] = 0;
-
+const int N = 100007;
+int phi[N];
+void pi_function(string & s) {
+	phi[0] = 0;
 	for(int i = 1; i < s.size(); ++i) {
+		int j = phi[i-1];
+		while(j and s[i] != s[j]) j = phi[j - 1];
 
-		pi[i] = pi[i-1];
-		while(pi[i] > 0 and s[i] != s[pi[i]]) {
-			pi[i] = pi[pi[i] - 1];
-		}
-
-		if(s[i] == s[pi[i]]) pi[i]++;
+		phi[i] = s[i] == s[j]? j + 1 : 0;
 	}
-
-	for(int i = 0; i < s.size(); ++i) {
-		cout << pi[i] << " ";
-	}
-
-	cout << endl;
-
-	
 }
+
+int main(){}
