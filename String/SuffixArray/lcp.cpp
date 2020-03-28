@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 
+using namespace std;
+
 // Retorna um vetor com os indices de inicio de prefixo.
 // Cuidado, essa funcao adiciona um caractere $ no final da string
 vector<int> build_sufix_array(string & s) {
@@ -8,7 +10,7 @@ vector<int> build_sufix_array(string & s) {
 	vector<int> head(n), a(n), a1(n), c(n), c1(n);
 
 	for(int i = 0; i < n; ++i) a[i] = i;
-	sort(a.begin(), a.end(), [=](int i, int j) {
+	sort(a.begin(), a.end(), [&](int i, int j) {
 		return s[i] < s[j];
 	});
 	int cc = 0;
@@ -43,6 +45,35 @@ vector<int> build_sufix_array(string & s) {
 	return a;
 }
 
-int main() {
+// returns lcp array, with size a.size()-1, in which lcp[i] represents 
+// the longest common prefix between suffix in position i and the one in i+1
+vector<int> build_lcp(vector<int> & a, string & s) {
+	int n = a.size();
+	vector<int> pos(n), lcp(n-1);
+	for(int i = 0; i < n; ++i) {
+		pos[a[i]] = i;
+	}
 
+	int sz = 0;
+	for(int i = 0; i < n; ++i) {
+		if(pos[i] == n-1) continue;
+		int j = a[pos[i] + 1];
+		while(i + sz < n and j + sz < n and s[i + sz] == s[j + sz]) sz++;
+		lcp[pos[i]] = sz;
+		if(sz) sz--;
+	}
+	return lcp;
+}
+
+int main() {
+	string s = "abacaba";
+	vector<int> a = build_sufix_array(s);
+
+	// removes the $
+	s.pop_back();
+	a.erase(a.begin());
+	
+	vector<int> lcp = build_lcp(a, s);
+	for(int x : lcp) cout << x << ' ';
+	cout << endl;
 }

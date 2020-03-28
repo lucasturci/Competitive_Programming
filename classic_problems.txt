@@ -1,0 +1,3 @@
+This is a file to gather links to classic problems, so that you can test out your algorithms and ideas by making submissions to this problems
+
+LCS - Longest Common Substring : https://www.spoj.com/problems/LCS/
