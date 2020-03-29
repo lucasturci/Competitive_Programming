@@ -16,3 +16,6 @@ https://atcoder.jp/contests/abc151/tasks/abc151_f
 - **Longest Common Substring of K Strings**
 
 https://www.spoj.com/problems/LONGCS/
+
+- **Longest Common Subsequence of 2 strings (LCS)**
+https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1346
