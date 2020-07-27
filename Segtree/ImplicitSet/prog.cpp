@@ -36,7 +36,7 @@
 using namespace std;
 #define mid ((l+r) >> 1)
 
-const int N = 5000007; // I think this is a good N for 10^5
+const int N = 2000007; // I think this is a good N for 10^5
 
 struct node {
 	int l, r; // children left and right
@@ -45,12 +45,16 @@ struct node {
 
 
 node seg[N];
+stack<int> garbage; // If you are sure you wont use a node anymore, you can add it to garbage, to avoid MLE
 int tt;
 
 int new_node() {
-	++tt;
-	seg[tt].l = seg[tt].r = seg[tt].s = 0;
-	return tt;
+	int u;
+	if(garbage.size()) u = garbage.top(), garbage.pop();
+	else u = ++tt;
+
+	seg[u].l = seg[u].r = seg[u].s = 0;
+	return u;
 }
 
 // add x occurences of j
@@ -119,6 +123,7 @@ void merge(int & t1, int t2) {
 	merge(seg[t1].l, seg[t2].l);
 	merge(seg[t1].r, seg[t2].r);
 	seg[t1].s += seg[t2].s;
+	garbage.push(t2);
 }
 
 // ask for kth
